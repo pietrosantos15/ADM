@@ -57,6 +57,21 @@ async function criarCliente(evento) {
     
 
     try {
+        
+        const respostaLista = await fetch(ENDPOINT_LISTA_TODOS);
+        const clientes = await respostaLista.json();
+    
+        
+        const cpfExistente = clientes.some(cliente => cliente.cpf === cpf);
+        if (cpfExistente) {
+            res.innerHTML = '<p class="text-red-500">Erro: Este CPF já está cadastrado.</p>';
+            setTimeout(() => {
+                res.innerHTML = '';
+            }, 4000);
+            return; 
+        }
+    
+        
         const resposta = await fetch(ENDPOINT_BASE, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
