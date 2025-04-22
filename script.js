@@ -1,5 +1,5 @@
 
-const ENDPOINT_BASE = 'https://back-seven-mauve.vercel.app/';
+const ENDPOINT_BASE = 'http://127.0.0.1:5000/clientes';
 const ENDPOINT_LISTA_TODOS = `${ENDPOINT_BASE}/lista`;
 
 
@@ -66,10 +66,14 @@ async function criarCliente(evento) {
         const dados = await resposta.json();
         if (!resposta.ok) throw new Error(dados.Mensagem || dados.mensagem);
 
-        res.innerHTML = `<p class="text-green-600">${dados.mensagem}</p>`;
+        
         inputNomeCriacao.value = '';
         inputCpfCriacao.value = '';
         inputStatusCriacaoElement.value = '';
+        res.innerHTML = `<p class="text-green-600">${dados.mensagem}</p>`;
+        setTimeout(() => {
+            res.innerHTML = '';
+        }, 4000);
         await buscarListarClientes();
     } catch (erro) {
         res.innerHTML = `<p class="text-red-500">Erro ao criar cliente: ${erro.message}</p>`;
@@ -120,10 +124,12 @@ async function atualizarCliente(evento) {
         });
 
         const dados = await resposta.json();
+        
         if (!resposta.ok) throw new Error(dados.Mensagem || 'Erro ao atualizar');
 
-        res2.innerHTML = `<p class="text-green-600">${dados.Mensagem}</p>`;
+        
         esconderFormularioAtualizacao();
+        
         await buscarListarClientes();
     } catch (erro) {
         res2.innerHTML = `<p class="text-red-500">Erro: ${erro.message}</p>`;
