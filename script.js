@@ -123,7 +123,7 @@ async function atualizarCliente(evento) {
     }
 
     if (status.toLowerCase() !== 'ativo' && status.toLowerCase() !== 'bloqueado') {
-        res2.innerHTML = '<p class="text-red-500">Erro ao criar cliente: Status inválido. Use ativo ou bloqueado.</p>';
+        res2.innerHTML = '<p class="text-red-500">Erro ao atualizar cliente: Status inválido. Use ativo ou bloqueado.</p>';
         setTimeout(() => {
             res2.innerHTML = '';
         }, 4000);
